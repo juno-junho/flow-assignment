@@ -1,0 +1,82 @@
+ifndef::snippet[]
+:snippet: ../../../build/generated-snippets
+endif::[]
+
+
+== 1. 고정 확장자 목록 조회
+==== Request
+include::{snippet}/extension-blocks/getFixedExtensions/http-request.adoc[]
+
+==== Path Parameters
+include::{snippet}/extension-blocks/getFixedExtensions/path-parameters.adoc[]
+
+==== Response
+include::{snippet}/extension-blocks/getFixedExtensions/http-response.adoc[]
+include::{snippet}/extension-blocks/getFixedExtensions/response-fields.adoc[]
+
+== 2. 커스텀 확장자 목록 조회
+==== Request
+include::{snippet}/extension-blocks/getCustomExtensions/http-request.adoc[]
+
+==== Path Parameters
+include::{snippet}/extension-blocks/getCustomExtensions/path-parameters.adoc[]
+
+==== Response
+include::{snippet}/extension-blocks/getCustomExtensions/http-response.adoc[]
+include::{snippet}/extension-blocks/getCustomExtensions/response-fields.adoc[]
+
+== 3. 커스텀 확장자 등록
+==== Request
+include::{snippet}/extension-blocks/addCustomExtension/http-request.adoc[]
+
+==== Path Parameters
+include::{snippet}/extension-blocks/addCustomExtension/path-parameters.adoc[]
+
+==== Request Paramaters
+include::{snippet}/extension-blocks/addCustomExtension/form-parameters.adoc[]
+
+
+==== Response
+include::{snippet}/extension-blocks/addCustomExtension/http-response.adoc[]
+include::{snippet}/extension-blocks/addCustomExtension/response-fields.adoc[]
+
+== 4. 고정 확장자 체크 상태 변경
+==== Request
+include::{snippet}/extension-blocks/changeFixedExtensionStatus/http-request.adoc[]
+
+==== Path Parameters
+include::{snippet}/extension-blocks/changeFixedExtensionStatus/path-parameters.adoc[]
+
+==== Request Fields
+include::{snippet}/extension-blocks/changeFixedExtensionStatus/request-fields.adoc[]
+
+==== Response
+include::{snippet}/extension-blocks/changeFixedExtensionStatus/http-response.adoc[]
+
+== 5. 커스텀 확장자 삭제
+==== Request
+include::{snippet}/extension-blocks/deleteCustomExtension/http-request.adoc[]
+
+==== Path Parameters
+include::{snippet}/extension-blocks/deleteCustomExtension/path-parameters.adoc[]
+
+==== Request Paramaters
+include::{snippet}/extension-blocks/deleteCustomExtension/form-parameters.adoc[]
+
+==== Response
+include::{snippet}/extension-blocks/deleteCustomExtension/http-response.adoc[]
+
+
+== 6. 파일 업로드
+
+==== Request
+include::{snippet}/extension-blocks/uploadFile/http-request.adoc[]
+
+==== Path Parameters
+include::{snippet}/extension-blocks/uploadFile/path-parameters.adoc[]
+
+==== Request Parts
+include::{snippet}/extension-blocks/uploadFile/request-parts.adoc[]
+
+==== Response
+include::{snippet}/extension-blocks/uploadFile/http-response.adoc[]
