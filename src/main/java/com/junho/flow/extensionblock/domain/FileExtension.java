@@ -2,6 +2,8 @@ package com.junho.flow.extensionblock.domain;
 
 import lombok.Getter;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +30,6 @@ public enum FileExtension {
     MSC(new byte[]{0X3C, 0X3F, 0X78, 0X6D, 0X6C, 0X20, 0X76, 0X65}, false), // 3C, 3F, 78, 6D, 6C, 20, 76, 65
     JAR(new byte[]{0x50, 0x4B, 0x03, 0x04}, false), // 50 4B 03 04
     DLL(new byte[]{0x4D, 0x5A}, false), // 4D 5A
-
 
     // 스크립트 관련 확장자
     VB(new byte[]{}, false),
@@ -97,6 +98,28 @@ public enum FileExtension {
                 .filter(fileExtension -> fileExtension.name().equalsIgnoreCase(extension))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 확장자가 없습니다."));
+    }
+
+    public static void validateSignature(
+            InputStream inputStream,
+            List<String> customFileExtensionsToBlock,
+            List<String> fixedFileExtensionsToBlock
+    ) {
+        inputStream.mark(0);
+        Arrays.stream(values())
+                .filter(fileExtension -> customFileExtensionsToBlock.contains(fileExtension.getExtension()) || fixedFileExtensionsToBlock.contains(fileExtension.getExtension()))
+                .filter(fileExtension -> fileExtension.signature.length > 0)
+                .forEach(fileExtension -> {
+                    try {
+                        inputStream.reset();
+                        byte[] signatures = inputStream.readNBytes(fileExtension.signature.length);
+                        if (Arrays.equals(signatures, fileExtension.signature)) {
+                            throw new SecurityException("위험한 파일 시그니처가 포함되어 있습니다.");
+                        }
+                    } catch (IOException e) {
+                        throw new IllegalArgumentException("파일 시그니처를 읽을 수 없습니다.");
+                    }
+                });
     }
 
     public String getExtension() {
