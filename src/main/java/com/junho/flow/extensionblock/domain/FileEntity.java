@@ -8,6 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * File 이름 사용 시 충돌 발생으로 FileEntity로 이름 변경
+ */
 @Entity
 @Table(name = "file")
 public class FileEntity extends BaseTimeEntity {

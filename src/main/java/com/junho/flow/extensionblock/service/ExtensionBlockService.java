@@ -43,7 +43,6 @@ public class ExtensionBlockService {
 
         // 업로드
         fileUploader.upload(file);
-
     }
 
     private void validateFileToBlock(long userId, MultipartFile file) {
@@ -74,7 +73,7 @@ public class ExtensionBlockService {
 
     @Transactional
     public void deleteCustomExtension(long userId, List<String> extension) {
-        customFileExtensionRepository.deleteByUserIdAndExtensionIn(userId, extension);
+        customFileExtensionRepository.deleteByUserIdAndFileExtensionIn(userId, extension);
     }
 
     @Transactional
