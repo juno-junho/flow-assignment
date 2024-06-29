@@ -11,6 +11,13 @@ import jakarta.persistence.Table;
 @Table(name = "fixed_file_extension")
 public class FixedFileExtension {
 
+    protected FixedFileExtension(){}
+
+    public FixedFileExtension(FileExtension fileExtension, Long userId) {
+        this.fileExtension = fileExtension;
+        this.userId = userId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fixed_file_extension_id")
