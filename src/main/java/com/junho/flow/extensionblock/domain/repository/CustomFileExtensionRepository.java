@@ -13,4 +13,6 @@ public interface CustomFileExtensionRepository extends JpaRepository<CustomFileE
     @Modifying(clearAutomatically = true)
     void deleteByUserIdAndFileExtensionIn(long userId, List<String> extension);
 
+    boolean existsByUserIdAndFileExtension(long userId, String extension);
+
 }

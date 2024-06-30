@@ -9,9 +9,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 
+import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_CONTAINS_SPACE;
+import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_MAX_LENGTH;
+import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NULL_OR_EMPTY;
+
 @Entity
 @Table(name = "custom_file_extension")
 public class CustomFileExtension extends BaseTimeEntity {
+
+    private static final int MAX_EXTENSION_LENGTH = 20;
 
     protected CustomFileExtension() {}
 
@@ -23,23 +29,25 @@ public class CustomFileExtension extends BaseTimeEntity {
 
     private void validateFileExtension(String fileExtension) {
         if (fileExtension == null || fileExtension.isBlank()) {
-            throw new IllegalArgumentException("파일의 확장자는 null이 될 수 없습니다.");
+            throw new IllegalArgumentException(EXTENSION_NULL_OR_EMPTY.getMessage());
         }
-        if (fileExtension.length() > 20) {
-            throw new IllegalArgumentException("파일의 확장자는 20자를 넘을 수 없습니다.");
+        if (fileExtension.trim().length() > MAX_EXTENSION_LENGTH) {
+            throw new IllegalArgumentException(EXTENSION_MAX_LENGTH.getMessage());
+        }
+        if (fileExtension.contains(" ")) {
+            throw new IllegalArgumentException(EXTENSION_CONTAINS_SPACE.getMessage());
         }
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "custom_file_extension_id")
     private Long id;
 
     @Getter
-    @Column(name = "file_extension", nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String fileExtension;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(nullable = false)
     private Long userId;
 
     public boolean isRestricted() {

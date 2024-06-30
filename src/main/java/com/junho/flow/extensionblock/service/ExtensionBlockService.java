@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_ALREADY_EXISTS;
+import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -67,6 +70,10 @@ public class ExtensionBlockService {
 
     @Transactional
     public ExtensionResult addCustomExtension(long userId, String extension) {
+        String extensionToSave = extension.trim().toLowerCase();
+        if (customFileExtensionRepository.existsByUserIdAndFileExtension(userId, extensionToSave)) {
+            throw new IllegalArgumentException(EXTENSION_ALREADY_EXISTS.getMessage());
+        }
         CustomFileExtension savedCustomExtension = customFileExtensionRepository.save(new CustomFileExtension(extension, userId));
         return ExtensionResult.of(savedCustomExtension);
     }
@@ -81,7 +88,7 @@ public class ExtensionBlockService {
         String extension = extensionInfo.extension();
 
         FixedFileExtension fixedFileExtension = fixedFileExtensionRepository.findByFileExtensionAndUserId(FileExtension.from(extension), userId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 확장자입니다."));
+                .orElseThrow(() -> new IllegalArgumentException(EXTENSION_NOT_FOUND.getMessage()));
 
         fixedFileExtension.check(extensionInfo.isChecked()); // dirty checking
     }

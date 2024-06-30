@@ -5,6 +5,7 @@ import com.junho.flow.extensionblock.controller.response.CustomExtensionResponse
 import com.junho.flow.extensionblock.controller.response.FixedExtensionResponse;
 import com.junho.flow.extensionblock.service.ExtensionBlockService;
 import com.junho.flow.extensionblock.service.response.ExtensionResult;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -71,7 +72,7 @@ public class ExtensionBlockController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateFixedExtensionStatus(
             @PathVariable("userId") @Positive @NotNull long userId,
-            @RequestBody FixedExtensionRequest request
+            @Valid @RequestBody FixedExtensionRequest request
     ) {
         extensionBlockService.checkFixedExtension(userId, request.toInfo());
     }

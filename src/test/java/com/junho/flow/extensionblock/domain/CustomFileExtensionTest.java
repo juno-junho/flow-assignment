@@ -64,6 +64,17 @@ class CustomFileExtensionTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    @DisplayName("커스텀 파일 확장자에 공백이 포함되어 있으면 예외가 발생한다")
+    void throwsIllegalArgumentException_when_customExceptionContainsWhiteSpace() {
+        // given
+        var customFileExtension = "a b";
+        var userId = 1L;
+
+        // when, then
+        assertThatThrownBy(() -> new CustomFileExtension(customFileExtension, userId))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 
     @Test
     @DisplayName("커스텀 파일 확장자에 등록되어 있는 것은 모두 확장자 제한 대상이다")
