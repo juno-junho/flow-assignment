@@ -24,6 +24,8 @@ spring:
   h2:
     console:
       enabled: true
+  mvc:
+    static-path-pattern: /static/**
 
 logging:
   level:

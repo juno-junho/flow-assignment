@@ -93,7 +93,7 @@ function addExtensionBlock(extension) {
     if (extension !== "" && list.children.length < 201) {
         var entry = document.createElement('div');
         entry.classList.add('badge', 'bg-secondary', 'm-1');
-        entry.textContent = extension + " ";
+        entry.textContent = extension.toLowerCase() + " ";
         var removeBtn = document.createElement('button');
         removeBtn.classList.add('btn-close');
         removeBtn.onclick = function () {
