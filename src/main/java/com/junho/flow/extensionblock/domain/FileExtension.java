@@ -7,6 +7,10 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NOT_FOUND;
+import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_VALIDATION_FAILED;
+import static com.junho.flow.global.advice.ExceptionCode.FILE_UPLOAD_FAILED;
+
 @Getter
 public enum FileExtension {
 
@@ -97,7 +101,7 @@ public enum FileExtension {
         return Arrays.stream(values())
                 .filter(fileExtension -> fileExtension.name().equalsIgnoreCase(extension))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 확장자가 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException(EXTENSION_NOT_FOUND.getMessage()));
     }
 
     public static void validateSignature(
@@ -114,10 +118,10 @@ public enum FileExtension {
                         inputStream.reset();
                         byte[] signatures = inputStream.readNBytes(fileExtension.signature.length);
                         if (Arrays.equals(signatures, fileExtension.signature)) {
-                            throw new SecurityException("위험한 파일 시그니처가 포함되어 있습니다.");
+                            throw new SecurityException(EXTENSION_VALIDATION_FAILED.getMessage());
                         }
                     } catch (IOException e) {
-                        throw new IllegalArgumentException("파일 시그니처를 읽을 수 없습니다.");
+                        throw new IllegalArgumentException(FILE_UPLOAD_FAILED.getMessage());
                     }
                 });
     }
