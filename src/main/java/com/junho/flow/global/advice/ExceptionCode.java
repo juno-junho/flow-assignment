@@ -12,9 +12,13 @@ public enum ExceptionCode {
     EXTENSION_NOT_ALPHANUMERIC("파일의 확장자는 영어와 숫자조합만 등록 가능합니다."),
     CUSTOM_EXTENSION_COUNT_EXCEEDED("사용자의 커스텀 확장자 등록 개수를 초과했습니다."),
 
+    // 차단 확장자 및 파일 시그니처 검증
+    EXTENSION_BLOCKED("차단된 확장자입니다."),
+    FILE_NAME_NOT_FOUND("파일 이름이 존재하지 않습니다."),
     EXTENSION_VALIDATION_FAILED("확장자 검증에 실패했습니다."),
     FILE_UPLOAD_FAILED("파일 업로드에 실패했습니다."),
 
+    // etc
     INVALID_INPUT_VALUE("유효하지 않은 입력 값입니다."),
     ;
 

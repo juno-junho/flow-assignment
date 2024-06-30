@@ -46,7 +46,7 @@ public class ExtensionBlockService {
         validateFileToBlock(userId, file);
 
         // 업로드
-        fileUploader.upload(file);
+        fileUploader.upload(userId, file);
     }
 
     private void validateFileToBlock(long userId, MultipartFile file) {
@@ -63,7 +63,8 @@ public class ExtensionBlockService {
 
         // 파일 시그니처 검증
         try (InputStream inputStream = file.getInputStream()) {
-            FileExtension.validateSignature(inputStream, customFileExtensionsToBlock, fixedFileExtensionsToBlock);
+            byte[] bytes = inputStream.readNBytes(10); // 최대 10바이트까지만 읽어서 검증
+            FileExtension.validateSignature(bytes, customFileExtensionsToBlock, fixedFileExtensionsToBlock);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

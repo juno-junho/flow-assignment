@@ -72,7 +72,7 @@ class FileExtensionTest {
         assertThatThrownBy(() -> FileExtension.from(fileExtension))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-    
+
     @Test
     @DisplayName("차단하는 확장자의 파일 시그니처를 포함한다면 예외를 발생한다")
     void throws_securityException_when_fileSignatureMatches() {
@@ -88,9 +88,9 @@ class FileExtensionTest {
 
         // then
         assertAll(
-                () -> assertThatThrownBy(() -> FileExtension.validateSignature(inputStream1, customFileExtensionsToBlock, fixedExtensionsToBlock))
+                () -> assertThatThrownBy(() -> FileExtension.validateSignature(inputStream1.readNBytes(10), customFileExtensionsToBlock, fixedExtensionsToBlock))
                 .isInstanceOf(SecurityException.class),
-                () -> assertThatThrownBy(() -> FileExtension.validateSignature(inputStream2, customFileExtensionsToBlock, fixedExtensionsToBlock))
+                () -> assertThatThrownBy(() -> FileExtension.validateSignature(inputStream2.readNBytes(10), customFileExtensionsToBlock, fixedExtensionsToBlock))
                 .isInstanceOf(SecurityException.class)
         );
     }
@@ -110,8 +110,8 @@ class FileExtensionTest {
 
         // then
         assertAll(
-                () -> assertThatNoException().isThrownBy(() -> FileExtension.validateSignature(inputStream1, customFileExtensionsToBlock, fixedExtensionsToBlock)),
-                () -> assertThatNoException().isThrownBy(() -> FileExtension.validateSignature(inputStream2, customFileExtensionsToBlock, fixedExtensionsToBlock))
+                () -> assertThatNoException().isThrownBy(() -> FileExtension.validateSignature(inputStream1.readNBytes(10), customFileExtensionsToBlock, fixedExtensionsToBlock)),
+                () -> assertThatNoException().isThrownBy(() -> FileExtension.validateSignature(inputStream2.readNBytes(10), customFileExtensionsToBlock, fixedExtensionsToBlock))
         );
     }
 

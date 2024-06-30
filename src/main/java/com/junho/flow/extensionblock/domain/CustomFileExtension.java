@@ -36,10 +36,10 @@ public class CustomFileExtension extends BaseTimeEntity {
         if (fileExtension.trim().length() > MAX_EXTENSION_LENGTH) {
             throw new IllegalArgumentException(EXTENSION_MAX_LENGTH.getMessage());
         }
-        if (fileExtension.contains(" ")) {
+        if (fileExtension.trim().contains(" ")) {
             throw new IllegalArgumentException(EXTENSION_NOT_ALPHANUMERIC.getMessage());
         }
-        if (!fileExtension.matches(ONLY_ALPHANUMERIC)) {
+        if (!fileExtension.trim().matches(ONLY_ALPHANUMERIC)) {
             throw new IllegalArgumentException(EXTENSION_NOT_ALPHANUMERIC.getMessage());
         }
     }

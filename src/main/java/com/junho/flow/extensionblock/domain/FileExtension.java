@@ -2,14 +2,11 @@ package com.junho.flow.extensionblock.domain;
 
 import lombok.Getter;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NOT_FOUND;
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_VALIDATION_FAILED;
-import static com.junho.flow.global.advice.ExceptionCode.FILE_UPLOAD_FAILED;
 
 @Getter
 public enum FileExtension {
@@ -105,23 +102,17 @@ public enum FileExtension {
     }
 
     public static void validateSignature(
-            InputStream inputStream,
+            byte[] inputSignature,
             List<String> customFileExtensionsToBlock,
             List<String> fixedFileExtensionsToBlock
     ) {
-        inputStream.mark(0);
         Arrays.stream(values())
                 .filter(fileExtension -> customFileExtensionsToBlock.contains(fileExtension.getExtension()) || fixedFileExtensionsToBlock.contains(fileExtension.getExtension()))
                 .filter(fileExtension -> fileExtension.signature.length > 0)
                 .forEach(fileExtension -> {
-                    try {
-                        inputStream.reset();
-                        byte[] signatures = inputStream.readNBytes(fileExtension.signature.length);
-                        if (Arrays.equals(signatures, fileExtension.signature)) {
-                            throw new SecurityException(EXTENSION_VALIDATION_FAILED.getMessage());
-                        }
-                    } catch (IOException e) {
-                        throw new IllegalArgumentException(FILE_UPLOAD_FAILED.getMessage());
+                    byte[] signatures = Arrays.copyOf(inputSignature, fileExtension.signature.length);// inputStream.readNBytes(fileExtension.signature.length
+                    if (Arrays.equals(signatures, fileExtension.signature)) {
+                        throw new SecurityException(EXTENSION_VALIDATION_FAILED.getMessage());
                     }
                 });
     }
