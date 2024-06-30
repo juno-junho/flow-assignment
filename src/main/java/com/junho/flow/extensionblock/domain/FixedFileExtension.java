@@ -22,17 +22,16 @@ public class FixedFileExtension extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fixed_file_extension_id")
     private Long id;
 
-    @Column(name = "file_extension", nullable = false)
+    @Column(nullable = false)
     @Convert(converter = FileExtensionConverter.class)
     private FileExtension fileExtension;
 
     @Column(name = "restricted", nullable = false)
     private boolean isRestricted;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(nullable = false)
     private Long userId;
 
     public String getFileExtension() {

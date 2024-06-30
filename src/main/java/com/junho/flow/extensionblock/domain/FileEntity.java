@@ -25,19 +25,18 @@ public class FileEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "file_id")
     private Long id;
 
-    @Column(name = "upload_file_name", nullable = false)
+    @Column(nullable = false)
     private String uploadFileName;
 
-    @Column(name = "generated_file_name", nullable = false)
+    @Column(nullable = false)
     private String generatedFileName;
 
-    @Column(name = "file_extension", nullable = false)
+    @Column(nullable = false)
     private String fileExtension;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(nullable = false)
     private Long userId;
 
 }
