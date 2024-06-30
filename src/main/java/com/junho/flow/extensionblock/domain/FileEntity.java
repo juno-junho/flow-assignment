@@ -17,10 +17,11 @@ public class FileEntity extends BaseTimeEntity {
 
     protected FileEntity() {}
 
-    public FileEntity(String uploadFileName, String generatedFileName, String fileExtension) {
+    public FileEntity(String uploadFileName, String generatedFileName, String fileExtension, Long userId) {
         this.uploadFileName = uploadFileName;
         this.generatedFileName = generatedFileName;
         this.fileExtension = fileExtension;
+        this.userId = userId;
     }
 
     @Id
