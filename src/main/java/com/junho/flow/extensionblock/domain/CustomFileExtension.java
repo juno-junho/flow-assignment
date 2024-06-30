@@ -17,6 +17,7 @@ import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NULL_OR_EMPTY
 @Table(name = "custom_file_extension")
 public class CustomFileExtension extends BaseTimeEntity {
 
+    public static final int MAX_COUNT = 200;
     private static final int MAX_EXTENSION_LENGTH = 20;
     private static final String ONLY_ALPHANUMERIC = "^[a-zA-Z0-9]+$";
 

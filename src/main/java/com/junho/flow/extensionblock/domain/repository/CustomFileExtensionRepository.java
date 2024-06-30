@@ -15,4 +15,6 @@ public interface CustomFileExtensionRepository extends JpaRepository<CustomFileE
 
     boolean existsByUserIdAndFileExtension(long userId, String extension);
 
+    int countByUserId(long userId);
+
 }

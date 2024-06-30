@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static com.junho.flow.global.advice.ExceptionCode.CUSTOM_EXTENSION_COUNT_EXCEEDED;
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_ALREADY_EXISTS;
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NOT_FOUND;
 
@@ -71,11 +72,18 @@ public class ExtensionBlockService {
     @Transactional
     public ExtensionResult addCustomExtension(long userId, String extension) {
         String extensionToSave = extension.trim().toLowerCase();
+        validateCustomExtension(userId, extensionToSave);
+        CustomFileExtension savedCustomExtension = customFileExtensionRepository.save(new CustomFileExtension(extension, userId));
+        return ExtensionResult.of(savedCustomExtension);
+    }
+
+    private void validateCustomExtension(long userId, String extensionToSave) {
+        if (customFileExtensionRepository.countByUserId(userId) >= CustomFileExtension.MAX_COUNT) {
+            throw new IllegalArgumentException(CUSTOM_EXTENSION_COUNT_EXCEEDED.getMessage());
+        }
         if (customFileExtensionRepository.existsByUserIdAndFileExtension(userId, extensionToSave)) {
             throw new IllegalArgumentException(EXTENSION_ALREADY_EXISTS.getMessage());
         }
-        CustomFileExtension savedCustomExtension = customFileExtensionRepository.save(new CustomFileExtension(extension, userId));
-        return ExtensionResult.of(savedCustomExtension);
     }
 
     @Transactional
