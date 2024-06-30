@@ -64,16 +64,27 @@ class CustomFileExtensionTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
-    @DisplayName("커스텀 파일 확장자에 공백이 포함되어 있으면 예외가 발생한다")
-    void throwsIllegalArgumentException_when_customExceptionContainsWhiteSpace() {
+    @ParameterizedTest
+    @ValueSource(strings = {"A.FSD", ".,.A", "++,", "  ", "    "})
+    @DisplayName("커스텀 파일 확장자에 공백이 포함되어 있거나, 영어나 숫자가 아닌 다른 문자가 포함되어 있다면 예외가 발생한다")
+    void throwsIllegalArgumentException_when_notOnlyAlphaNumeric(String customFileExtension) {
         // given
-        var customFileExtension = "a b";
         var userId = 1L;
 
         // when, then
         assertThatThrownBy(() -> new CustomFileExtension(customFileExtension, userId))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"a1", "a1bB2", "a1b2c3", "AAAAA", "11212"})
+    @DisplayName("커스텀 파일 확장자는 알파벳과 숫자만 가능하다")
+    void doesNotthrowsException_when_onlyAlphanumeric(String customFileExtension) {
+        // given
+        var userId = 1L;
+
+        // when, then
+        assertThatNoException().isThrownBy(() -> new CustomFileExtension(customFileExtension, userId));
     }
 
     @Test

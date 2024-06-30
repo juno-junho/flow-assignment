@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 
-import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_CONTAINS_SPACE;
+import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NOT_ALPHANUMERIC;
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_MAX_LENGTH;
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NULL_OR_EMPTY;
 
@@ -18,12 +18,13 @@ import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NULL_OR_EMPTY
 public class CustomFileExtension extends BaseTimeEntity {
 
     private static final int MAX_EXTENSION_LENGTH = 20;
+    private static final String ONLY_ALPHANUMERIC = "^[a-zA-Z0-9]+$";
 
     protected CustomFileExtension() {}
 
     public CustomFileExtension(String fileExtension, Long userId) {
         validateFileExtension(fileExtension);
-        this.fileExtension = fileExtension.toLowerCase();
+        this.fileExtension = fileExtension.trim().toLowerCase();
         this.userId = userId;
     }
 
@@ -35,7 +36,10 @@ public class CustomFileExtension extends BaseTimeEntity {
             throw new IllegalArgumentException(EXTENSION_MAX_LENGTH.getMessage());
         }
         if (fileExtension.contains(" ")) {
-            throw new IllegalArgumentException(EXTENSION_CONTAINS_SPACE.getMessage());
+            throw new IllegalArgumentException(EXTENSION_NOT_ALPHANUMERIC.getMessage());
+        }
+        if (!fileExtension.matches(ONLY_ALPHANUMERIC)) {
+            throw new IllegalArgumentException(EXTENSION_NOT_ALPHANUMERIC.getMessage());
         }
     }
 
