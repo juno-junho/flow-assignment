@@ -1,5 +1,6 @@
 package com.junho.flow.global.advice;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,10 +26,11 @@ public class GlobalExceptionHandler {
      * 파일 시그니처 값 검증 실패에 대한 예외 처리
      */
     @ExceptionHandler(SecurityException.class)
-    public ErrorResponse handleSecurityException(SecurityException e) {
+    public ErrorResponse handleSecurityException(SecurityException e, HttpServletRequest request) {
         String message = e.getMessage();
         ExceptionCode code = ExceptionCode.from(message);
 
+        request.setAttribute("handledSecurityException", true);
         return new ErrorResponse(message, code.toString());
     }
 
