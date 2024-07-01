@@ -49,7 +49,7 @@ public class CustomFileExtension extends BaseTimeEntity {
     private Long id;
 
     @Getter
-    @Column(nullable = false, length = 20, unique = true)
+    @Column(nullable = false, length = 20)
     private String fileExtension;
 
     @Column(nullable = false)
