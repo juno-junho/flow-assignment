@@ -1,5 +1,11 @@
 document.getElementById('fileUploadForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // 폼 기본 제출 동작 방지
+    e.preventDefault();
+
+    const fileInput = document.getElementById('formFileMultiple');
+    if (fileInput.files.length === 0) {
+        alert('파일을 선택해 주세요.');
+        return;
+    }
 
     const formData = new FormData(this);
     fetch(this.action, {
