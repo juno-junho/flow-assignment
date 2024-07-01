@@ -20,6 +20,7 @@ import java.util.List;
 import static com.junho.flow.global.advice.ExceptionCode.CUSTOM_EXTENSION_COUNT_EXCEEDED;
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_ALREADY_EXISTS;
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NOT_FOUND;
+import static com.junho.flow.global.advice.ExceptionCode.FAILED_TO_READ_FILE;
 
 @Service
 @RequiredArgsConstructor
@@ -66,7 +67,7 @@ public class ExtensionBlockService {
             byte[] bytes = inputStream.readNBytes(10); // 최대 10바이트까지만 읽어서 검증
             FileExtension.validateSignature(bytes, customFileExtensionsToBlock, fixedFileExtensionsToBlock);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(FAILED_TO_READ_FILE.toString());
         }
     }
 

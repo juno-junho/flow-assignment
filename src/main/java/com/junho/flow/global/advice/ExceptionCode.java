@@ -1,7 +1,10 @@
 package com.junho.flow.global.advice;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 
+@Getter
 public enum ExceptionCode {
     EXTENSION_ALREADY_EXISTS("이미 존재하는 확장자입니다."),
     EXTENSION_NOT_FOUND("존재하지 않는 확장자입니다."),
@@ -17,6 +20,8 @@ public enum ExceptionCode {
     FILE_NAME_NOT_FOUND("파일 이름이 존재하지 않습니다."),
     EXTENSION_VALIDATION_FAILED("확장자 검증에 실패했습니다."),
     FILE_UPLOAD_FAILED("파일 업로드에 실패했습니다."),
+    FAILED_TO_READ_FILE("파일을 읽는데 실패했습니다."),
+    FILE_TOO_LARGE("파일이 너무 큽니다."),
 
     // etc
     INVALID_INPUT_VALUE("유효하지 않은 입력 값입니다."),
@@ -26,10 +31,6 @@ public enum ExceptionCode {
 
     ExceptionCode(String message) {
         this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public static ExceptionCode from(String message) {

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @Slf4j
 @RestControllerAdvice
@@ -32,6 +33,16 @@ public class GlobalExceptionHandler {
 
         request.setAttribute("handledSecurityException", true);
         return new ErrorResponse(message, code.toString());
+    }
+
+    /**
+     * 파일 용량 초과시 용량처리
+     */
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ErrorResponse handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+        ExceptionCode code = ExceptionCode.FILE_TOO_LARGE;
+
+        return new ErrorResponse(code.getMessage(), code.toString());
     }
 
     /**
