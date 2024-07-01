@@ -1,8 +1,8 @@
 # flow-assignment
 
-배포 주소 : https://extension-block.store/
-api 문서 주소 : https://extension-block.store/static/docs/index.html
-
+- 배포 주소 : https://extension-block.store/
+- api 문서 주소 : https://extension-block.store/static/docs/index.html
+- 예외페이지 :  https://extension-block.store/anyInvalidUrl
 
 ## 요구사항 분석
 
@@ -60,5 +60,7 @@ api 문서 주소 : https://extension-block.store/static/docs/index.html
 - 인증 인가는 구현하지 않았지만 확장 가능한 구조로 엔티티 설계를 진행했습니다.
   - user별로 고정확장자 리스트 및 체크 여부, 커스텀 확장자 리스트를 관리할 수 있는 구조로 설계했습니다.
 
-- Front와 Backend 모두에서 꼼꼼한 검증을 진행했습니다.
-  - 도메인 분석을 통해 확장자는 중간에 공백이나 특수문자가 없는 영어와 한글조합으로 제한해 진행했습니다.
+- 도메인 분석과 함께 최대한 꼼꼼하게 검증을 진행했습니다.
+  - 유효하지 않은 url로 접근할 경우 404 페이지를 띄우도록 구현했습니다.
+  - 커스텀 확장자가 고정 확장자이거나, 중복되거나, 200개를 초과하는 경우, 중간 공백이나 특수문자(영어,숫자 조합 이외) 등 예외처리를 진행했습니다.
+  - 파일 업로드시 업로드 최대 크기는 10MB로 제한해 파일 업로드시 파일 크기를 검증을 진행했습니다.
