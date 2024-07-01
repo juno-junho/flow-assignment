@@ -88,12 +88,6 @@ public enum FileExtension {
         this.isFixed = isFixed;
     }
 
-    public static List<FileExtension> getFixedExtensions() {
-        return Arrays.stream(values())
-                .filter(FileExtension::isFixed)
-                .toList();
-    }
-
     public static FileExtension from(String extension) {
         return Arrays.stream(values())
                 .filter(fileExtension -> fileExtension.name().equalsIgnoreCase(extension))
@@ -115,6 +109,12 @@ public enum FileExtension {
                         throw new SecurityException(EXTENSION_VALIDATION_FAILED.getMessage());
                     }
                 });
+    }
+
+    public static boolean isFixedExtension(String extensionToSave) {
+        return Arrays.stream(values())
+                .filter(FileExtension::isFixed)
+                .anyMatch(fileExtension -> fileExtension.name().equalsIgnoreCase(extensionToSave));
     }
 
     public String getExtension() {

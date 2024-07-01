@@ -28,7 +28,7 @@ class FileExtensionTest {
     }
 
     @Test
-    @DisplayName("고정확장자 리스트를 반환한다")
+    @DisplayName("고정확장자 리스트에 포함된 여부를 반환한다")
     void return_fixedFileExtensions() {
         // given
         var expectedFixedFileExtensions = List.of(
@@ -40,12 +40,13 @@ class FileExtensionTest {
                 FileExtension.SCR,
                 FileExtension.JS
         );
+        var extensionToSave = "exe";
 
         // when
-        var actualFixedFileExtensions = FileExtension.getFixedExtensions();
+        var actualFixedFileExtensions = FileExtension.isFixedExtension(extensionToSave);
 
         // then
-        assertThat(actualFixedFileExtensions).containsExactlyElementsOf(expectedFixedFileExtensions);
+        assertThat(actualFixedFileExtensions).isTrue();
     }
 
     @Test

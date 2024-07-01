@@ -21,6 +21,7 @@ import static com.junho.flow.global.advice.ExceptionCode.CUSTOM_EXTENSION_COUNT_
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_ALREADY_EXISTS;
 import static com.junho.flow.global.advice.ExceptionCode.EXTENSION_NOT_FOUND;
 import static com.junho.flow.global.advice.ExceptionCode.FAILED_TO_READ_FILE;
+import static com.junho.flow.global.advice.ExceptionCode.IS_FIXED_EXTENSION;
 
 @Service
 @RequiredArgsConstructor
@@ -85,6 +86,9 @@ public class ExtensionBlockService {
         }
         if (customFileExtensionRepository.existsByUserIdAndFileExtension(userId, extensionToSave)) {
             throw new IllegalArgumentException(EXTENSION_ALREADY_EXISTS.getMessage());
+        }
+        if (FileExtension.isFixedExtension(extensionToSave)) {
+            throw new IllegalArgumentException(IS_FIXED_EXTENSION.getMessage());
         }
     }
 

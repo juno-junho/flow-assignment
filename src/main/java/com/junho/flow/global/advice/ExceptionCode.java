@@ -14,6 +14,7 @@ public enum ExceptionCode {
     EXTENSION_CONTAINS_SPACE("파일의 확장자에 공백이 포함되어 있습니다."),
     EXTENSION_NOT_ALPHANUMERIC("파일의 확장자는 영어와 숫자조합만 등록 가능합니다."),
     CUSTOM_EXTENSION_COUNT_EXCEEDED("사용자의 커스텀 확장자 등록 개수를 초과했습니다."),
+    IS_FIXED_EXTENSION("고정확장자는 등록할 수 없습니다."),
 
     // 차단 확장자 및 파일 시그니처 검증
     EXTENSION_BLOCKED("차단된 확장자입니다."),

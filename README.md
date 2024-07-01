@@ -1,5 +1,8 @@
 # flow-assignment
-플로우 과제테스트
+
+배포 주소 : https://extension-block.store/
+api 문서 주소 : https://extension-block.store/static/docs/index.html
+
 
 ## 요구사항 분석
 
