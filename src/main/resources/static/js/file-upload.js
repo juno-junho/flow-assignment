@@ -1,5 +1,4 @@
 document.getElementById('fileUploadForm').addEventListener('submit', function (e) {
-    console.log("submit-------------");
     e.preventDefault(); // 폼 기본 제출 동작 방지
 
     const formData = new FormData(this);

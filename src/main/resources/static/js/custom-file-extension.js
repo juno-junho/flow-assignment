@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function fetchCustomExtensions() {
     const userId = 1;  // 유저ID는 1로 고정
-    fetch('http://localhost:8080/api/v1/extension-blocks/custom-extensions/'+userId)
+    fetch('https://extension-block.store/api/v1/extension-blocks/custom-extensions/'+userId)
         .then(response => response.json())
         .then(data => {
             const container = document.getElementById('extList');
@@ -32,7 +32,7 @@ function deleteCustomExtension(extension, badge) {
     const formData = new URLSearchParams();
     formData.append('extension', extension);
 
-    fetch('http://localhost:8080/api/v1/extension-blocks/custom-extensions/1', {
+    fetch('https://extension-block.store/api/v1/extension-blocks/custom-extensions/1', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -55,7 +55,7 @@ function addCustomExtension() {
     const extension = input.value.trim();  // 입력값을 가져오고 공백 제거
     console.log('Extension:', extension)
     if (extension) {  // 입력값이 있는 경우에만 요청 수행
-        const url = 'http://localhost:8080/api/v1/extension-blocks/custom-extensions/1';
+        const url = 'https://extension-block.store/api/v1/extension-blocks/custom-extensions/1';
         const formData = new URLSearchParams();
         formData.append('extension', extension);
 

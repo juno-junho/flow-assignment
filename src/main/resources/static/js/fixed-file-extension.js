@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function fetchFixedExtensions() {
     const userId = 1; // 유저ID는 1로 고정
-    fetch('http://localhost:8080/api/v1/extension-blocks/fixed-extensions/' + userId)
+    fetch('https://extension-block.store/api/v1/extension-blocks/fixed-extensions/' + userId)
         .then(response => response.json())
         .then(data => {
             console.log(data);
@@ -42,7 +42,7 @@ function updateExtension(checkbox) {
 
     const userId = 1; // 유저ID는 1로 고정
     // 서버로 PATCH 요청 보내기
-    fetch('http://localhost:8080/api/v1/extension-blocks/custom-extensions/' + userId, {
+    fetch('https://extension-block.store/api/v1/extension-blocks/custom-extensions/' + userId, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
