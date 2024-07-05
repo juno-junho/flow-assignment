@@ -67,8 +67,9 @@ const addCustomExtension = async () => {
     }catch (error){
         console.error('Error adding custom extension:', error);
         alert('Error: ' + error.message);
+    }finally {
+        input.value = '';// 요청 후 입력 필드 초기화
     }
-    input.value = '';// 요청 후 입력 필드 초기화
 }
 
 const addExtensionBlock = (extension) => {
@@ -81,9 +82,8 @@ const addExtensionBlock = (extension) => {
 
         const removeButton = document.createElement('button');
         removeButton.classList.add('btn-close');
-        removeButton.onclick = () =>  {
-            deleteCustomExtension(extension, badge).then(console.log); // 항목이 제거될 때 개수 업데이트
-        };
+        removeButton.onclick = () => deleteCustomExtension(extension, badge).then(console.log); // 항목이 제거될 때 개수 업데이트
+
         badge.appendChild(removeButton);
         extensionList.appendChild(badge);
         updateCustomExtensionCount(); // 항목이 추가될 때 개수 업데이트

@@ -37,9 +37,7 @@ const createCheckbox = (item) => {
     input.id = item.extension;
     input.value = item.extension;
     input.checked = item.isChecked;
-    input.onchange = function () {
-        updateExtension(this);
-    };
+    input.onchange = () => updateExtension(this);
     return input;
 }
 
