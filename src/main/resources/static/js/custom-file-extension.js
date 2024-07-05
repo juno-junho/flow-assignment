@@ -32,7 +32,7 @@ const deleteCustomExtension = async (extension, badge) => {
             badge.remove(); // 화면 배지 제거
             updateCustomExtensionCount(); // 확장자가 제거될 때마다 개수 업데이트
         } else {
-            throw new Error('Failed to delete the extension');
+            console.error('Failed to delete the extension');
         }
     } catch (error) {
         console.error('Error deleting custom extension', error);
