@@ -1,5 +1,5 @@
-
-const USER_ID = 1; // userId 1로 고정
+import {userId} from "./user.mjs";
+import {urlPrefix} from "./url-info.mjs";
 
 document.addEventListener('DOMContentLoaded', async function () {
     await fetchFixedExtensions();
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 const fetchFixedExtensions = async () => {
     try {
-        const response = await fetch(`https://extension-block.store/api/v1/extension-blocks/fixed-extensions/${USER_ID}`);
+        const response = await fetch(`${urlPrefix}/api/v1/extension-blocks/fixed-extensions/${userId}`);
         const data = await response.json();
         showFixedExtensions(data);
     } catch (error) {
@@ -21,7 +21,7 @@ const showFixedExtensions = (data) => {
         const div = document.createElement('div');
         div.className = 'form-check form-check-inline';
 
-        const input =createCheckbox(item);
+        const input = createCheckbox(item);
         const label = createLabel(item);
 
         div.appendChild(input);
@@ -37,7 +37,9 @@ const createCheckbox = (item) => {
     input.id = item.extension;
     input.value = item.extension;
     input.checked = item.isChecked;
-    input.onchange = () => updateExtension(this);
+    input.onchange = function () {
+        updateExtension(this);
+    };
     return input;
 }
 
@@ -49,12 +51,12 @@ const createLabel = (item) => {
     return label;
 }
 
-const updateExtension = async(checkbox) => { // 서버로 PATCH 요청 보내기
+const updateExtension = async (checkbox) => { // 서버로 PATCH 요청 보내기
     const extension = checkbox.value;
     const isChecked = checkbox.checked;
 
     try {
-        const response = await fetch(`https://extension-block.store/api/v1/extension-blocks/custom-extensions/${USER_ID}`, {
+        const response = await fetch(`${urlPrefix}/api/v1/extension-blocks/custom-extensions/${userId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,3 +1,13 @@
+import {userId} from "./user.mjs";
+import {urlPrefix} from "./url-info.mjs";
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('fileUploadForm');
+    const apiUrl = `${urlPrefix}/api/v1/extension-blocks/upload/${userId}`;
+
+    form.setAttribute('action', apiUrl);
+});
+
 document.getElementById('fileUploadForm').addEventListener('submit', async function (e) {
     e.preventDefault(); // 기본 동작 방지 (폼 제출 후 새고로침)
 
@@ -9,7 +19,7 @@ document.getElementById('fileUploadForm').addEventListener('submit', async funct
     try {
         const response = await uploadFiles(this);
         handleUploadResponse(response);
-    }catch (error){
+    } catch (error) {
         console.error('Error during upload:', error);
         alert('파일 업로드 중 오류 발생: ' + error.message); // 오류 메시지 표시
     }

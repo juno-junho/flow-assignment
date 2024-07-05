@@ -1,6 +1,9 @@
 
-const MAX_CUSTOM_EXTENSION_COUNT = 200;
-const USER_ID = 1; // userId 1로 고정
+import {userId} from "./user.mjs";
+import {urlPrefix} from "./url-info.mjs";
+
+const maxCustomExtensionCount = 200;
+
 
 document.addEventListener('DOMContentLoaded', async function () {
     await fetchCustomExtensions();
@@ -8,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 const fetchCustomExtensions = async () => {
     try {
-        const response = await fetch(`https://extension-block.store/api/v1/extension-blocks/custom-extensions/${USER_ID}`);
+        const response = await fetch(`${urlPrefix}/api/v1/extension-blocks/custom-extensions/${userId}`);
         const data = await response.json();
         data.forEach(item => addExtensionBlock(item.extension));
     } catch (error) {
@@ -20,7 +23,7 @@ const deleteCustomExtension = async (extension, badge) => {
     const formData = new URLSearchParams();
     formData.append('extension', extension);
     try {
-        const response = await fetch(`https://extension-block.store/api/v1/extension-blocks/custom-extensions/${USER_ID}`, {
+        const response = await fetch(`${urlPrefix}/api/v1/extension-blocks/custom-extensions/${userId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -51,7 +54,7 @@ const addCustomExtension = async () => {
     formData.append('extension', extension);
 
     try{
-        const response = await fetch(`https://extension-block.store/api/v1/extension-blocks/custom-extensions/${USER_ID}`, {
+        const response = await fetch(`${urlPrefix}/api/v1/extension-blocks/custom-extensions/${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -75,7 +78,7 @@ const addCustomExtension = async () => {
 const addExtensionBlock = (extension) => {
     const extensionList = document.getElementById('extList');
 
-    if (extension !== "" && extensionList.children.length <= MAX_CUSTOM_EXTENSION_COUNT) {
+    if (extension !== "" && extensionList.children.length <= maxCustomExtensionCount) {
         const badge = document.createElement('div');
         badge.classList.add('badge', 'bg-secondary', 'm-1');
         badge.textContent = extension.toLowerCase() + " ";
@@ -92,5 +95,7 @@ const addExtensionBlock = (extension) => {
 
 const updateCustomExtensionCount = () =>  {
     const count = document.getElementsByClassName('badge').length;
-    document.getElementById('extCount').textContent = `${count}/${MAX_CUSTOM_EXTENSION_COUNT}`;
+    document.getElementById('extCount').textContent = `${count}/${maxCustomExtensionCount}`;
 }
+
+window.addCustomExtension = addCustomExtension;
