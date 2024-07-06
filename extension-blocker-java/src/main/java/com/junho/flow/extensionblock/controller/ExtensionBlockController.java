@@ -4,7 +4,6 @@ import com.junho.flow.extensionblock.controller.request.FixedExtensionRequest;
 import com.junho.flow.extensionblock.controller.response.CustomExtensionResponse;
 import com.junho.flow.extensionblock.controller.response.FixedExtensionResponse;
 import com.junho.flow.extensionblock.service.ExtensionBlockService;
-import com.junho.flow.extensionblock.service.response.ExtensionResult;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

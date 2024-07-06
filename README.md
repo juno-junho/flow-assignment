@@ -11,7 +11,7 @@
 
 - 어떤 파일들은 첨부시 보안에 문제가 될 수 있다. 특히 exe, sh 등 실행파일 존재할 경우 서버에 올려 실행이 될 수 있는 위험이 있기에 파일 확장자 차단 기능이 필요하다.
 
-![block-file-extension.png](block-file-extension.png)
+![block-file-extension.png](image/block-file-extension.png)
 
 ### 요구사항
 - 고정확장자 : 차단을 자주하는 확장자 리스트. dafault로 checkbox가 uncheck 되어 있다.
@@ -38,7 +38,7 @@
 
 ## 파일 확장자에 대한 검증
 
-![img.png](img.png)
+![img.png](image/img.png)
 
 파일 확장자 검사시 확장자는 클라이언트에서 변경될 수 있기 때문에 확장자 뿐만 아니라, 서버에서 `파일 시그니처` 값을 검증 해 주어야 한다고 판단했습니다.
 
