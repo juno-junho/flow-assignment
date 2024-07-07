@@ -22,7 +22,8 @@ public class SecurityInterceptor implements HandlerInterceptor{
     public void afterCompletion(
             HttpServletRequest request,
             HttpServletResponse response,
-            Object handler, Exception ex
+            Object handler,
+            Exception ex
     ) {
         if (request.getAttribute("handledSecurityException") != null) {
             log.warn("SecurityException 발생-------");

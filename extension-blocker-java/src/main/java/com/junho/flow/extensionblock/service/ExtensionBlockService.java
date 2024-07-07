@@ -25,19 +25,20 @@ import static com.junho.flow.global.advice.ExceptionCode.IS_FIXED_EXTENSION;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class ExtensionBlockService {
 
     private final FixedFileExtensionRepository fixedFileExtensionRepository;
     private final CustomFileExtensionRepository customFileExtensionRepository;
     private final FileUploader fileUploader;
 
+    @Transactional(readOnly = true)
     public List<ExtensionResult> getFixedExtensions(Long userId) {
         return fixedFileExtensionRepository.findByUserId(userId).stream()
                 .map(ExtensionResult::of)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public List<ExtensionResult> getCustomExtensions(long userId) {
         return customFileExtensionRepository.findByUserId(userId).stream()
                 .map(ExtensionResult::of)

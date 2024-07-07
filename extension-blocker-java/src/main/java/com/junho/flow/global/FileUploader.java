@@ -4,7 +4,6 @@ import com.junho.flow.extensionblock.domain.FileEntity;
 import com.junho.flow.extensionblock.domain.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -34,7 +33,6 @@ public class FileUploader {
         return fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
     }
 
-    @Transactional
     public void upload(Long userId, MultipartFile file) {
         // s3 저장 - 추후 저장 예정
         String originalName = file.getOriginalFilename();
