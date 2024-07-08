@@ -20,17 +20,9 @@ sequelize.sync({force: false})
     console.error(err);
   });
 
-// DB 설정
-// const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-// host: process.env.DB_HOST,
-//   dialect: 'mysql',
-//   logging: false
-// });
-
 // 미들웨어 설정
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev'));
 
 // 라우터 설정
@@ -55,8 +47,8 @@ app.use((err, req, res, next) => {
     error: err
   });
 });
-// 데이터베이스 연결 테스트
 
+// 데이터베이스 연결 테스트
 const assertDatabaseConnectionOk = async () => {
   try {
     await sequelize.authenticate();
@@ -67,12 +59,6 @@ const assertDatabaseConnectionOk = async () => {
 }
 
 // 서버 시작
-const port = app.get('port');
-// app.listen(port, async () => {
-//   console.log(`Server is running on port ${port}`);
-//   await assertDatabaseConnectionOk();
-// });
-
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중');
 });
