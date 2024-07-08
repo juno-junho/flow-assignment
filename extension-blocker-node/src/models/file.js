@@ -32,6 +32,7 @@ class File extends Model {
             timestamps: true
         });
     }
+    static associate(db) {}
 }
 
 module.exports = File;

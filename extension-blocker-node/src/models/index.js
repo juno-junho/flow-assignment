@@ -5,6 +5,7 @@ const User = require('./user');
 const CustomFileExtension = require('./custom-file-extension');
 const FixedFileExtension = require('./fixed-file-extension');
 const File = require('./file');
+const FileExtension = require('./file-extension');
 
 
 const env = process.env.NODE_ENV || 'development';
@@ -20,8 +21,8 @@ FixedFileExtension.initiate(sequelize);
 File.initiate(sequelize);
 
 User.associate(db);
-CustomFileExtension.initiate(db);
-FixedFileExtension.initiate(db);
-File.initiate(db);
+CustomFileExtension.associate(db);
+FixedFileExtension.associate(db);
+File.associate(db);
 
 module.exports = db;

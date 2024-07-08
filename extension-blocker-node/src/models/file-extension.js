@@ -23,7 +23,7 @@ const fileExtension = {
     VBS: {signature: [], isFixed: false},
     VBE: {signature: [0x23, 0x40, 0x7E, 0x5E], isFixed: false}, // 23 40 7E 5E
     JSE: {signature: [], isFixed: false},
-    WS: {signature: [0x1D, 0x7D], false}, //  1D 7D
+    WS: {signature: [0x1D, 0x7D], isFixed: false}, //  1D 7D
     WSF: {signature: [], isFixed: false},
     WSC: {signature: [], isFixed: false},
     WSH: {signature: [], isFixed: false},
@@ -65,3 +65,5 @@ const fileExtension = {
     TAR: {signature: [0x75, 0x73, 0x74, 0x61, 0x72], isFixed: false}, //  75 73 74 61 72
     GZ: {signature: [0x1F, 0x8B], isFixed: false} // 1F 8B
 }
+
+module.exports = fileExtension;
