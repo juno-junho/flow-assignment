@@ -13,6 +13,7 @@ class FixedFileExtension extends Model {
             fileExtension: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
+                field: 'file_extension',
                 get() {
                     const rawValue = this.getDataValue('fileExtension');
                     return rawValue ? rawValue.toLowerCase() : null;
@@ -30,14 +31,26 @@ class FixedFileExtension extends Model {
                 defaultValue: true
             },
             userId: {
+                field: 'user_id',
                 type: DataTypes.BIGINT,
                 allowNull: false
+            },
+            createdAt: {
+                field: 'created_at',
+                type: DataTypes.DATE,
+                allowNull: false,
+            },
+            updatedAt: {
+                field: 'last_modified_at',
+                type: DataTypes.DATE,
+                allowNull: false,
             }
         }, {
             sequelize,
             modelName: 'FixedFileExtension',
             tableName: 'fixed_file_extension',
             timestamps: true,
+            underscored: true
         });
     }
 
