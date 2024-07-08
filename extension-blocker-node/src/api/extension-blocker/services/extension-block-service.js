@@ -1,6 +1,6 @@
 const FixedFileExtension = require('../../../models/fixed-file-extension');
-const CustomFileExtension = require('../../../models/custom-file-extension');
 
+const CustomFileExtension = require('../../../models/custom-file-extension');
 const getFixedExtensions = async (userId) => {
     const fixedExtensions = await FixedFileExtension.findAll({
         where: {
@@ -24,4 +24,12 @@ const getCustomExtensions = async (userId) => {
     }));
 };
 
-module.exports = {getFixedExtensions, getCustomExtensions}
+const addCustomExtension = async (userId, extension) => {
+    const customExtension = await CustomFileExtension.create({
+        fileExtension: extension,
+        userId: userId,
+    });
+    return customExtension.getExtension();
+}
+
+module.exports = {getFixedExtensions, getCustomExtensions, addCustomExtension};

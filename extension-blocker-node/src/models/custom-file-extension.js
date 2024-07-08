@@ -1,5 +1,8 @@
 const {Model, DataTypes} = require('sequelize');
 
+const MAX_EXTENSION_LENGTH = 20;
+const ONLY_ALPHANUMERIC = "^[a-zA-Z0-9]+$";
+
 class CustomFileExtension extends Model {
     static initiate(sequelize) {
         CustomFileExtension.init({
@@ -13,21 +16,6 @@ class CustomFileExtension extends Model {
                 type: DataTypes.STRING(20),
                 allowNull: false,
                 field: 'file_extension',
-                validate: {
-                    notNull: {
-                        msg: "Extension cannot be null"
-                    },
-                    notEmpty: {
-                        msg: "Extension cannot be empty"
-                    },
-                    isAlphanumeric: {
-                        msg: "Extension must be alphanumeric"
-                    },
-                    len: {
-                        args: [1, 20],
-                        msg: "Extension must be no longer than 20 characters"
-                    }
-                },
                 set(value) {
                     this.setDataValue('fileExtension', value.trim().toLowerCase());
                 }
@@ -55,8 +43,17 @@ class CustomFileExtension extends Model {
             underscored: true,
             hooks: {
                 beforeValidate: (customFileExtension, options) => {
-                    if (customFileExtension.fileExtension && customFileExtension.fileExtension.includes(' ')) {
-                        throw new Error('Extension cannot include spaces');
+                    if (customFileExtension.fileExtension == null || customFileExtension.fileExtension.trim().length === 0) {
+                        throw new Error('확장자가 비어있거나 null입니다.');
+                    }
+                    if (customFileExtension.fileExtension.length > MAX_EXTENSION_LENGTH) {
+                        throw new Error('파일의 확장자가 최대 길이를 초과했습니다.');
+                    }
+                    if (customFileExtension.fileExtension.trim().includes(' ')) {
+                        throw new Error('파일의 확장자에 공백이 포함되어 있습니다.');
+                    }
+                    if(!customFileExtension.fileExtension.match(ONLY_ALPHANUMERIC)) {
+                        throw new Error('파일의 확장자는 알파벳과 숫자만 가능합니다.');
                     }
                 }
             }
@@ -67,8 +64,8 @@ class CustomFileExtension extends Model {
 
     getExtension = () => this.fileExtension.toLowerCase();
 
-    static associate(db) { // 다른 모델과의 관계
-    }
+    static associate(db) {} // 다른 모델과의 관계
+
 }
 
 module.exports = CustomFileExtension;
