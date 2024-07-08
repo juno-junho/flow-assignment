@@ -12,6 +12,7 @@ class CustomFileExtension extends Model {
             fileExtension: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
+                field: 'file_extension',
                 validate: {
                     notNull: {
                         msg: "Extension cannot be null"
@@ -33,13 +34,25 @@ class CustomFileExtension extends Model {
             },
             userId: {
                 type: DataTypes.BIGINT,
-                allowNull: false
+                allowNull: false,
+                field: 'user_id'
+            },
+            createdAt: {
+                field: 'created_at',
+                type: DataTypes.DATE,
+                allowNull: false,
+            },
+            updatedAt: {
+                field: 'last_modified_at',
+                type: DataTypes.DATE,
+                allowNull: false,
             }
         }, {
             sequelize,
             modelName: 'CustomFileExtension',
             tableName: 'custom_file_extension',
             timestamps: true, // BaseTimeEntity를 상속받기 때문에 timestamps: true로 설정합니다.
+            underscored: true,
             hooks: {
                 beforeValidate: (customFileExtension, options) => {
                     if (customFileExtension.fileExtension && customFileExtension.fileExtension.includes(' ')) {

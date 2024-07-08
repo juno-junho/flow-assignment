@@ -13,4 +13,14 @@ router.get('/fixed-extensions/:userId', async (req, res) => {
     }
 });
 
+router.get('/custom-extensions/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    try {
+        const customExtensions = await extensionBlockService.getCustomExtensions(userId);
+        res.status(200).json(customExtensions);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 module.exports = router;
