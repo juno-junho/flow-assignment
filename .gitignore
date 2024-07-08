@@ -5,6 +5,10 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+## node.js
+node_modules/
+extension-blocker-node/.env
+
 ### STS ###
 .apt_generated
 .classpath
