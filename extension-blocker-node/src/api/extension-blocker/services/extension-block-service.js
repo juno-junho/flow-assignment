@@ -1,6 +1,6 @@
 const FixedFileExtension = require('../../../models/fixed-file-extension');
-
 const CustomFileExtension = require('../../../models/custom-file-extension');
+const Op = require('sequelize').Op;
 
 const getFixedExtensions = async (userId) => {
     const fixedExtensions = await FixedFileExtension.findAll({
@@ -43,11 +43,28 @@ const checkFixedExtension = async (userId, body) => {
         }
     });
 
-    if(dataDoestNotExists(updatedResult)) {
+    if (dataDoestNotExists(updatedResult)) {
         throw new Error('존재하지 않는 확장자입니다.');
     }
 }
 
 const dataDoestNotExists = (updatedResult) => updatedResult[0] === 0;
 
-module.exports = {getFixedExtensions, getCustomExtensions, addCustomExtension, checkFixedExtension};
+const deleteCustomExtension = async (userId, extensions) => {
+    await CustomFileExtension.destroy({
+        where: {
+            userId: userId,
+            fileExtension: {
+                [Op.in]: extensions
+            }
+        }
+    });
+};
+
+module.exports = {
+    getFixedExtensions,
+    getCustomExtensions,
+    addCustomExtension,
+    checkFixedExtension,
+    deleteCustomExtension
+};

@@ -38,11 +38,24 @@ router.post('/custom-extensions/:userId', async (req, res) => {
     }
 });
 
-// 라우트: 고정 확장자 상태 업데이트
+// 고정 확장자 상태 변경
 router.patch('/custom-extensions/:userId', async (req, res) => {
     const userId = parseInt(req.params.userId);
     try {
         await extensionBlockService.checkFixedExtension(userId, req.body);
+        res.sendStatus(204);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+// 커스텀 확장자 삭제
+router.delete('/custom-extensions/:userId', async (req, res) => {
+    const userId = parseInt(req.params.userId);
+    const extensions = [].concat(req.body.extension || []);
+    console.log(`extensions: ${extensions}`);
+    try {
+        await extensionBlockService.deleteCustomExtension(userId, extensions);
         res.sendStatus(204);
     } catch (error) {
         res.status(500).send(error.message);
