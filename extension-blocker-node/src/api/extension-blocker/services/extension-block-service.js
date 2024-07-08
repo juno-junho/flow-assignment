@@ -1,6 +1,7 @@
 const FixedFileExtension = require('../../../models/fixed-file-extension');
 
 const CustomFileExtension = require('../../../models/custom-file-extension');
+
 const getFixedExtensions = async (userId) => {
     const fixedExtensions = await FixedFileExtension.findAll({
         where: {
@@ -32,4 +33,21 @@ const addCustomExtension = async (userId, extension) => {
     return customExtension.getExtension();
 }
 
-module.exports = {getFixedExtensions, getCustomExtensions, addCustomExtension};
+const checkFixedExtension = async (userId, body) => {
+    const updatedResult = await FixedFileExtension.update({
+        restricted: body.isChecked
+    }, {
+        where: {
+            userId: userId,
+            fileExtension: body.extension
+        }
+    });
+
+    if(dataDoestNotExists(updatedResult)) {
+        throw new Error('존재하지 않는 확장자입니다.');
+    }
+}
+
+const dataDoestNotExists = (updatedResult) => updatedResult[0] === 0;
+
+module.exports = {getFixedExtensions, getCustomExtensions, addCustomExtension, checkFixedExtension};

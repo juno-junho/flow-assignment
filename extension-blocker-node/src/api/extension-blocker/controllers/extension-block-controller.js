@@ -38,4 +38,15 @@ router.post('/custom-extensions/:userId', async (req, res) => {
     }
 });
 
+// 라우트: 고정 확장자 상태 업데이트
+router.patch('/custom-extensions/:userId', async (req, res) => {
+    const userId = parseInt(req.params.userId);
+    try {
+        await extensionBlockService.checkFixedExtension(userId, req.body);
+        res.sendStatus(204);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 module.exports = router;
